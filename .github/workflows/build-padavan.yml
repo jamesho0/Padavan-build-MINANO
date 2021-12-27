@@ -1,4 +1,4 @@
-#NEWIFI3云编译
+#MINANO云编译
 name: Build Padavan
 
 on: 
@@ -32,13 +32,13 @@ jobs:
         pkg-config zlib1g-dev libgmp3-dev libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev wget
     - name: Clone source code
       run: |
-        git clone --depth=1 https://github.com/pmkol/Padavan-Newifi3.git /opt/rt-n56u
+        git clone --depth=1 https://e.coding.net/hanwckf/rt-n56u/padavan.git /opt/rt-n56u
         cd /opt/rt-n56u/toolchain-mipsel
         sh dl_toolchain.sh
         mkdir -p /opt/images/
     - name: Build Firmware
       env:
-        TNAME: NEWIFI3
+        TNAME: MI-NANO
       run: |
         cd /opt/rt-n56u/trunk
         if [ ! -f configs/templates/$TNAME.config ] ; then
