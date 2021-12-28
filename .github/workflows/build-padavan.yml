@@ -32,7 +32,7 @@ jobs:
         pkg-config zlib1g-dev libgmp3-dev libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev wget
     - name: Clone source code
       run: |
-        git clone --depth=1 https://e.coding.net/hanwckf/rt-n56u/padavan.git /opt/rt-n56u
+        git clone --depth=1 https://github.com/hanwckf/rt-n56u.git /opt/rt-n56u
         cd /opt/rt-n56u/toolchain-mipsel
         sh dl_toolchain.sh
         mkdir -p /opt/images/
@@ -107,6 +107,15 @@ jobs:
         #sed -i '/自定义项/d' .config
         #echo "自定义项=y" >> .config
         #########################################################################################
+        修改路由器默认项
+        ###########################################################################
+        cd /opt/rt-n56u/trunk/user/shared/
+        sed -i '/#define DEF_LAN_ADDR		"192.168.2.1"/s/192.168.2.1/192.168.31.1/g' defaults.h
+        sed -i '/#define DEF_LAN_DHCP_BEG	"192.168.2.100"/s/192.168.2.100/192.168.31.100/g' defaults.h
+        sed -i '/#define DEF_LAN_DHCP_END	"192.168.2.244"/s/192.168.2.244/192.168.31.244/g' defaults.h
+        
+        cd /opt/rt-n56u/trunk
+        
         sudo ./clear_tree
         sudo ./build_firmware_modify $TNAME 0
         sudo mv -f images/*.trx /opt/images/
